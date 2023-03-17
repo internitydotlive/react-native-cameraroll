@@ -601,16 +601,13 @@ RCT_EXPORT_METHOD(getPhotoByInternalID:(NSString *)internalId
         editOptions.networkAccessAllowed = YES;
 
         [asset requestContentEditingInputWithOptions:editOptions completionHandler:^(PHContentEditingInput *contentEditingInput, NSDictionary *info) {
-          imageURL = contentEditingInput.fullSizeImageURL;
-          if (imageURL.absoluteString.length != 0) {
+          if (originalFilename.length != 0) {
 
-            filePath = [imageURL.absoluteString stringByReplacingOccurrencesOfString:@"pathfile:" withString:@"file:"];
 
             resolve(@{
                       @"node": @{
                           @"type": assetMediaTypeLabel,
                           @"image": @{
-                              @"filepath": filePath,
                               @"filename": originalFilename,
                               @"height": @([asset pixelHeight]),
                               @"width": @([asset pixelWidth]),
